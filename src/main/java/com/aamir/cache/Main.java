@@ -35,26 +35,23 @@ public class Main {
                 + cache.exists("record"));
 
         System.out.println("Final cache size: " + cache.size());
-
         // Test expiration
-        cache.set("temporary", "This will disappear");
+cache.set("temporary", "This will disappear");
 
-        cache.expire("temporary", 10);
+cache.expire("temporary", 10);
 
-        System.out.println("TTL: " + cache.ttl("temporary"));
+System.out.println("TTL: " + cache.ttl("temporary"));
 
-        // Wait 11 seconds
-        try {
-            Thread.sleep(11000);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
+try {
+    Thread.sleep(11000);
+} catch (InterruptedException e) {
+    Thread.currentThread().interrupt();
+}
 
-        // Check whether the key expired
-        System.out.println("Value after expiration: "
-                + cache.get("temporary"));
+System.out.println("Value after expiration: "
+        + cache.get("temporary"));
 
-        System.out.println("Does temporary exist? "
-                + cache.exists("temporary"));
+System.out.println("Does temporary exist? "
+        + cache.exists("temporary"));
     }
 }
