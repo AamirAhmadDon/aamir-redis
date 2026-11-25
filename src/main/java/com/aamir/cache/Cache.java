@@ -1,6 +1,7 @@
 
 package com.aamir.cache;
-
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Iterator;
@@ -126,4 +127,24 @@ public class Cache {
             }
         }
     }
+    // Save the current cache to a binary file
+public void save(Path file) throws IOException {
+    PersistenceManager manager = new PersistenceManager();
+
+    manager.save(storage, expirationTimes, file);
+}
+
+// Load cache contents from a binary file
+public void load(Path file) throws IOException {
+    PersistenceManager manager = new PersistenceManager();
+
+    PersistenceManager.CacheSnapshot snapshot =
+            manager.load(file);
+
+    storage.clear();
+    storage.putAll(snapshot.getStorage());
+
+    expirationTimes.clear();
+    expirationTimes.putAll(snapshot.getExpirationTimes());
+}
 }
